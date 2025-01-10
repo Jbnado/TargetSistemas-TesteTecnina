@@ -1,4 +1,4 @@
-import fs from 'fs';
+const fs = require('fs');
 
 fs.readFile('faturamentoMensal.json', (err, data) => {
   if (err) {
@@ -9,8 +9,8 @@ fs.readFile('faturamentoMensal.json', (err, data) => {
   try {
     const earnings = JSON.parse(data);
 
-    const validEarnings = earnings.filter(earning => earning > 0);
-    const totalEarnings = validEarnings.reduce((acc, earning) => acc + earning, 0);
+    const validEarnings = earnings.filter(earning => earning.valor > 0);
+    const totalEarnings = validEarnings.reduce((acc, earning) => acc + earning.valor, 0);
     const media = totalEarnings / validEarnings.length;
     console.log(`Média de faturamento: R$ ${media.toFixed(2)}`);
   } catch (error) {
